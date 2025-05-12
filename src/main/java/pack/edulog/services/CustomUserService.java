@@ -52,6 +52,7 @@ public class CustomUserService implements UserDetailsService {
         user.setRegistrationNumber(dto.registrationNumber);
         user.setPhone(dto.phone);
         user.setAddress(dto.address);
+        user.setClassName(dto.className);
         user.setNationality(nationality);
         user.setPassword(dto.getPassword());
 

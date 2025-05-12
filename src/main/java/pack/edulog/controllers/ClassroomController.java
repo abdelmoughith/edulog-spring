@@ -70,5 +70,17 @@ public class ClassroomController {
     public List<User> getStudentsInClassroom(@PathVariable Long classroomId) {
         return classroomService.getStudentsInClassroom(classroomId);
     }
+    @GetMapping("/all")
+    public ResponseEntity<?> getStudentClassroom(
+            @RequestHeader("Authorization") String rawToken
+    ) {
+        try {
+            List<Classroom> classroomList =
+                    classroomService.getClassroomOfStudent(rawToken);
+            return new ResponseEntity<>(classroomList, HttpStatus.OK);
+        } catch (Exception e) {
+            return new ResponseEntity<>(e.getMessage(), HttpStatus.INTERNAL_SERVER_ERROR);
+        }
+    }
 
 }

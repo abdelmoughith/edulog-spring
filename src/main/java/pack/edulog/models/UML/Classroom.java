@@ -46,6 +46,7 @@ public class Classroom {
     )
     private List<User> students = new ArrayList<>();
 
+
     @Column(length = 20, unique = true)
     private String code;
 

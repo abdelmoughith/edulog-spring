@@ -12,6 +12,7 @@ public class UserRequest {
     public String registrationNumber;
     public String phone;
     public String address;
+    public String className;
     public Long nationality; // This is just an ID
     private String password;
 

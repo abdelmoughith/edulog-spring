@@ -90,5 +90,12 @@ public class ClassroomService {
         return classroomRepository.findById(id)
                 .orElseThrow(() -> new RuntimeException("Classroom not found"));
     }
+    public List<Classroom> getClassroomOfStudent(String rawToken) {
+        String token = rawToken.replace("Bearer ", "").trim();
+        Long studentId = jwtUtil.extractUserId(token);
+        return classroomRepository.findAllByStudentId(studentId)
+                .orElseThrow( () -> new RuntimeException("Something went wrong"));
+
+    }
 }
 
