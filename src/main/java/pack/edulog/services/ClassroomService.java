@@ -92,9 +92,19 @@ public class ClassroomService {
     }
     public List<Classroom> getClassroomOfStudent(String rawToken) {
         String token = rawToken.replace("Bearer ", "").trim();
-        Long studentId = jwtUtil.extractUserId(token);
-        return classroomRepository.findAllByStudentId(studentId)
-                .orElseThrow( () -> new RuntimeException("Something went wrong"));
+        Long userId = jwtUtil.extractUserId(token);
+        User user = userRepository.findById(userId)
+                .orElseThrow(() -> new RuntimeException("user not found"));
+        if (user.hasRole("STUDENT")) {
+            return classroomRepository.findByStudentId(userId)
+                    .orElseThrow( () -> new RuntimeException("Something went wrong"));
+        } else if (user.hasRole("TEACHER")) {
+            return classroomRepository.findByTeacherId(userId)
+                    .orElseThrow( () -> new RuntimeException("Something went wrong"));
+        } else {
+            throw new RuntimeException("Only students can join classrooms");
+        }
+
 
     }
 }

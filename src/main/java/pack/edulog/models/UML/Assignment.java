@@ -7,6 +7,7 @@ import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import pack.edulog.models.user.User;
 
 import java.time.LocalDateTime;
 import java.util.ArrayList;
@@ -35,6 +36,10 @@ public class Assignment {
     @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd HH:mm:ss")
     private LocalDateTime deadline;
 
+    @Column(updatable = false)
+    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd HH:mm:ss")
+    private LocalDateTime created;
+
 
     @ElementCollection
     @CollectionTable(name = "urls_assignements", joinColumns = @JoinColumn(name = "assignements_id"))
@@ -48,8 +53,18 @@ public class Assignment {
     @JoinColumn(name = "classroom_id", nullable = false)
     private Classroom classroom;
 
-    @OneToMany(mappedBy = "assignment", cascade = CascadeType.ALL, orphanRemoval = true)
+    @ManyToMany
+    @JoinTable(
+            name = "assignment_submission",
+            joinColumns = @JoinColumn(name = "assignment_id"),
+            inverseJoinColumns = @JoinColumn(name = "submission_id")
+    )
     @JsonManagedReference
     private Set<Submission> submissions = new HashSet<>();
+    @PrePersist
+    protected void onCreate() {
+        this.created = LocalDateTime.now();
+    }
+
 
 }

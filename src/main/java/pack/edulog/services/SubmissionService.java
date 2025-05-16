@@ -158,7 +158,7 @@ public class SubmissionService {
             for (Row row : sheet) {
                 if (row.getRowNum() == 0) continue; // skip header
                 Cell studentIdCell = row.getCell(0);
-                Cell gradeCell = row.getCell(1);
+                Cell gradeCell = row.getCell(3);
 
                 if (studentIdCell != null && gradeCell != null) {
                     long studentId = (long) studentIdCell.getNumericCellValue();

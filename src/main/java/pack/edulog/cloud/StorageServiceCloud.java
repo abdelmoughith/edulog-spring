@@ -90,7 +90,7 @@ public class StorageServiceCloud {
             }
 
             // Construct the public URL
-            return "https://firebasestorage.googleapis.com/v0/b/indus-532b7.appspot.com/o/ "
+            return "https://firebasestorage.googleapis.com/v0/b/indus-532b7.appspot.com/o/"
                     + path.replace("/", "%2F")
                     + "?alt=media&token=" + downloadToken;
         } catch (Exception e) {

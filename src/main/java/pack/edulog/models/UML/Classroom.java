@@ -28,6 +28,8 @@ public class Classroom {
     @Column(nullable = false)
     private int studentNumber;
 
+    private String profileImage;
+
 
     @Column(nullable = false, updatable = false)
     private LocalDateTime createdAt;

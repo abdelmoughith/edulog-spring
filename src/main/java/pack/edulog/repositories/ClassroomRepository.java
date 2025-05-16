@@ -22,7 +22,10 @@ public interface ClassroomRepository extends JpaRepository<Classroom, Long> {
     Optional<Classroom> findByCode(String code);
 
     @Query("SELECT c FROM Classroom c JOIN c.students s WHERE s.id = :studentId")
-    List<Classroom> findByStudentId(@Param("studentId") Long studentId);
+    Optional<List<Classroom>> findByStudentId(@Param("studentId") Long studentId);
+
+    @Query("SELECT c FROM Classroom c WHERE c.teacher.id = :teacherId")
+    Optional<List<Classroom>> findByTeacherId(@Param("teacherId") Long teacherId);
 
 
 }

@@ -28,7 +28,6 @@ public class CourseController {
             @RequestParam(value = "file", required = false) List<MultipartFile> files,
             @RequestHeader("Authorization") String token
     ) throws JsonProcessingException {
-        System.out.println("the classroom is : "+ classroomId);
         Course assignment = objectMapper.readValue(request, Course.class);
 
         try {
